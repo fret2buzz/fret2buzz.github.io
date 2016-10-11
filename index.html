@@ -1,1 +1,180 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Git Cheat Sheet</title>
+  <style>
+  body {
+    font-family: arial;
+  }
+  code {
+    background: #e9e9e9;
+    font-weight: bold;
+    display: block;
+    vertical-align: top;
+    padding: 4px;
+    margin: 4px 0 20px;
+  }
+  .table {
+    width: 100%;
+  }
+  .table td {
+    vertical-align: top;
+    padding: 20px;
+    width: 33%;
+  }
+  </style>
+</head>
+<body>
+  <table class="table">
+    <tr>
+      <td>
+        <h2>SEARCH</h2>
+        Search for a branch
+        <code>$ git branch | grep 'ECOMIT'</code>
+         <h2>CREATE</h2>
+        Clone an existing repository
+        <code>$ git clone ssh://user@domain.com/repo.git</code>
+        Create a new local repository
+        <code>$ git init</code>
+        <h2>LOCAL CHANGES</h2>
+        Changed files in your working directory
+        <code>$ git status</code>
+        Changes to tracked files
+        <code>$ git diff</code>
+        <code>$ git diff > patchfile.patch</code>
+        diff last commit
+        <code>$ git diff HEAD^ HEAD</code>
+        Add all current changes to the next commit
+        <code>$ git add .</code>
+        will let you also record the removals
+        <code>$ git add --all</code>
+        Add some changes in &lt;file&gt; to the next commit
+        <code>$ git add -p &lt;file&gt;</code>
+        Commit all local changes in tracked files
+        <code>$ git commit -a</code>
+        Commit previously staged changes
+        <code>$ git commit -m 'message'</code>
+        <h2>COMMIT HISTORY</h2>
+        Show all commits, starting with newest
+        <code>$ git log</code>
+        Show changes over time for a specific file
+        <code>$ git log -p &lt;file&gt;</code>
+        Who changed what and when in &lt;file&gt;
+        <code>$ git blame &lt;file&gt;</code>
+        <h2>STASH</h2>
+        create stash
+        <code>$ git stash</code>
+        apply stash
+        <code>$ git stash apply</code>
+        <code>$ git stash apply stash@{0}</code>
+        remove a stash
+         <code>$ git stash drop stash@{0}</code>
+        remove all stashes
+        <code>$ git stash clear</code>
+        list stashes
+        <code>$ git stash list</code>
+        
+      </td>
+      <td>
+        <h2>BRANCHES &amp; TAGS</h2>
+        Delete a Git branch remotely
+        <code>$ git push origin --delete branchName</code>
+        List all existing branches
+        <code>$ git branch -av</code>
+        Switch HEAD branch
+        <code>$ git checkout &lt;branch&gt;</code>
+        Create a new branch based
+        on your current HEAD
+        <code>$ git branch &lt;new-branch&gt;</code>
+        New branch <b>myFeature</b> from the <b>dev</b> branch
+        <code>$ git checkout -b myFeature dev</code>
+        <code>$ git branch -u origin/myFeature</code>
+        <code>$ git push -u origin bugfix/jira-issue</code>
+        Delete a local branch
+        <code>$ git branch -d &lt;branch&gt;</code>
+        Mark the current commit with a tag
+        <code>$ git tag &lt;tag-name&gt;</code>
+
+        <h2>UPDATE &amp; PUBLISH</h2>
+        List all currently configured remotes
+        <code>$ git remote -v</code>
+        Show information about a remote
+        <code>$ git remote show &lt;remote&gt;</code>
+        Add new remote repository, named &lt;remote&gt;
+        <code>$ git remote add &lt;shortname&gt; &lt;url&gt;</code>
+        Download all changes from &lt;remote&gt;,
+        but don‘t integrate into HEAD
+        <code>$ git fetch &lt;remote&gt;</code>
+        Download changes and directly
+        merge/integrate into HEAD
+        <code>$ git pull &lt;remote&gt; &lt;branch&gt;</code>
+        Publish local changes on a remote
+        <code>$ git push &lt;remote&gt; &lt;branch&gt;</code>
+        Delete a branch on the remote
+        <code>$ git branch -dr &lt;remote/branch&gt;</code>
+        Delete a remote branch
+        <code>$ git push origin --delete &lt;branchName&gt;</code>
+      </td>
+      <td>
+        <h2>MERGE &amp; REBASE</h2>
+        Merge just <strong>one specific commit</strong> from another branch to your current branch.
+        <code>$ git cherry-pick &lt;commit&gt;</code>
+        Merge &lt;branch&gt; into your current HEAD
+        <code>$ git merge &lt;branch&gt;</code>
+        Merge &lt;branch&gt; into your current HEAD but do not actually make a commit
+        <code>$ git merge &lt;branch&gt; --squash</code>
+        Merge &lt;branch&gt; file into your current HEAD
+        <code>$ git checkout &lt;branch&gt; &lt;path to file&gt;</code>
+        Rebase your current HEAD onto &lt;branch&gt;
+        Don‘t rebase published commits!
+        <code>$ git rebase &lt;branch&gt;</code>
+        Abort a rebase
+        <code>$ git rebase --abort</code>
+        Continue a rebase after resolving conflicts
+        <code>$ git rebase --continue</code>
+        Use your configured merge tool to
+        solve conflicts
+        <code>$ git mergetool</code>
+        Use your editor to manually solve conflicts
+        and (after resolving) mark file as resolved
+        <code>$ git add &lt;resolved-file&gt;</code>
+        <code>$ git rm &lt;resolved-file&gt;</code>
+        before merging changes, you can also preview them by using
+        <code>$ git diff &lt;source_branch&gt; &lt;target_branch&gt;</code>
+        <h2>UNDO</h2>
+        discard changes in my working copy that are not in the index
+        <code>$ git stash save --keep-index</code>
+        <code>$ git stash drop</code>
+        Remove untracked files from the working tree and delete files or directories 
+        <code>$ git clean --force</code>
+        Discard all local changes in your working directory
+        <code>$ git reset --hard HEAD</code>
+        Unstage all files
+        <code>$ git reset</code>
+        Discard local changes in a specific file
+        <code>$ git checkout HEAD &lt;file&gt;</code>
+        Revert a commit (by producing a new commit with contrary changes)
+        <code>$ git revert &lt;commit&gt;</code>
+        Revert a commit but do not make a commit
+        <code>$ git revert --no-edit --no-commit &lt;commit&gt;</code>
+        This will move your current HEAD to the given revision
+        <code>$ git checkout HEAD~1</code>
+        <code>$ git checkout &lt;sha&gt;</code>
+        Undo a merge. This will get you back to commit_sha
+        <code>$ git reset --hard commit_sha</code>
+        <h2>NPM PACKAGES</h2>
+        version of all installed packages
+        <code>$ npm list</code>
+        version of sintalled package
+        <code>$ npm list (package)</code>
+        install version of package
+        <code>$ npm install (package)@(version)</code>
+        show all versions of package
+        <code>$ npm view (package) versions</code>
+        
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
