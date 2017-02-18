@@ -85,6 +85,43 @@
         
       </td>
       <td>
+        <h2>Git global setup</h2>
+
+        <code>
+        git config --global user.name "Pavel"<br />
+        git config --global user.email "mp3-cdrs@ya.ru"<br />
+        </code>
+
+        <h2>Create a new repository</h2>
+
+        <code>
+        git clone https://gitlab.com/mp3-cdrs/spinner.git<br />
+        cd spinner<br />
+        touch README.md<br />
+        git add README.md<br />
+        git commit -m "add README"<br />
+        git push -u origin master<br />
+        </code>
+
+        <h2>Existing folder</h2>
+
+        <code>
+        cd existing_folder<br />
+        git init<br />
+        git remote add origin https://gitlab.com/mp3-cdrs/spinner.git<br />
+        git add .<br />
+        git commit<br />
+        git push -u origin master<br />
+        </code>
+
+        <h2>Existing Git repository</h2>
+
+        <code>
+        cd existing_repo<br />
+        git remote add origin https://gitlab.com/mp3-cdrs/spinner.git<br />
+        git push -u origin --all<br />
+        git push -u origin --tags<br />
+        </code>
         <h2>BRANCHES &amp; TAGS</h2>
         Delete a Git branch remotely
         <code>$ git push origin --delete branchName</code>
