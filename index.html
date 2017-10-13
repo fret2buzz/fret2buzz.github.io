@@ -66,6 +66,7 @@
         <h2>COMMIT HISTORY</h2>
         Show all commits, starting with newest
         <code>$ git log</code>
+        <code>git log --pretty=oneline -3</code>
         Show changes over time for a specific file
         <code>$ git log -p &lt;file&gt;</code>
         Who changed what and when in &lt;file&gt;
@@ -82,7 +83,7 @@
         <code>$ git stash clear</code>
         list stashes
         <code>$ git stash list</code>
-        
+
       </td>
       <td>
         <h2>Git global setup</h2>
@@ -191,8 +192,9 @@
         discard changes in my working copy that are not in the index
         <code>$ git stash save --keep-index</code>
         <code>$ git stash drop</code>
-        Remove untracked files from the working tree and delete files or directories 
+        Remove untracked files from the working tree and delete files or directories
         <code>$ git clean --force</code>
+        <code>$ git clean --f -d</code>
         Discard all local changes in your working directory
         <code>$ git reset --hard HEAD</code>
         Unstage all files
@@ -219,7 +221,8 @@
         <code>$ npm install (package)@(version)</code>
         show all versions of package
         <code>$ npm view (package) versions</code>
-        
+        DEBUG gulp task
+        <code>DEBUG=* gulp [task]</code>
       </td>
     </tr>
   </table>
