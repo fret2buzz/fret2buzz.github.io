@@ -189,6 +189,13 @@
         before merging changes, you can also preview them by using
         <code>$ git diff &lt;source_branch&gt; &lt;target_branch&gt;</code>
         <h2>UNDO</h2>
+        # Reset the index and working tree to the desired tree
+        # Ensure you have no uncommitted changes that you want to keep
+        <code>git reset --hard 56e05fced</code>
+
+        # Move the branch pointer back to the previous HEAD
+        <code>git reset --soft HEAD@{1}</code>
+        <code>git commit -m "Revert to 56e05fced"</code>
         discard changes in my working copy that are not in the index
         <code>$ git stash save --keep-index</code>
         <code>$ git stash drop</code>
