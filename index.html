@@ -93,6 +93,51 @@
         git config --global user.email "mp3-cdrs@ya.ru"<br />
         </code>
 
+        or edit .gitconfig
+        <code>
+        [user]<br />
+        name = Username<br />
+        email = user123@gmail.com<br />
+        [core]<br />
+        autocrlf = true<br />
+        editor = 'C:/Users/user/Dropbox/apps/Sublime Text Build 3143 x64/sublime_text.exe' -w<br /><br />
+
+        [mergetool]<br />
+            prompt = false<br />
+            keepBackup = false<br />
+            keepTemporaries = false<br /><br />
+
+        [merge]<br />
+            tool = winmerge<br /><br />
+
+        [mergetool "winmerge"]<br />
+            name = WinMerge<br />
+            trustExitCode = true<br />
+            cmd = "/c/Users/user/Dropbox/apps/WinMerge/WinMergeU.exe" -u -e -dl \"Local\" -dr \"Remote\" $LOCAL $REMOTE $MERGED<br /><br />
+
+        [diff]<br />
+            tool = winmerge<br /><br />
+
+        [difftool "winmerge"]<br />
+            name = WinMerge<br />
+            trustExitCode = true<br />
+            cmd = "/c/Users/user/Dropbox/apps/WinMerge/WinMergeU.exe" -u -e $LOCAL $REMOTE<br /><br />
+
+        [alias]<br />
+        st = status<br />
+        ci = commit<br />
+        </code>
+
+        <h2>Diff with external tool</h2>
+        <code>
+            git difftool
+        </code>
+
+        <h2>Resolve conflict with external tool</h2>
+        <code>
+            git mergetool
+        </code>
+
         <h2>Create a new repository</h2>
 
         <code>
