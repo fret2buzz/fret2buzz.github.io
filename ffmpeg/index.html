@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ffmpeg Cheat Sheet</title>
+  <style>
+  body {
+    font-family: arial;
+}
+code {
+    background: #e9e9e9;
+    font-weight: bold;
+    display: block;
+    vertical-align: top;
+    padding: 4px;
+    margin: 4px 0 20px;
+}
+.table {
+    width: 100%;
+}
+.table td {
+    vertical-align: top;
+    padding: 20px;
+    width: 33%;
+}
+</style>
+</head>
+<body>
+  <table class="table">
+    <tr>
+      <td>
+        <h2>Change date</h2>
+        <code>
+        ffmpeg -i oldfile.mp4 -metadata "creation_time=2018-12-19 21:34:56" -codec copy newfile.mp4
+        </code>
+        <h2>IMAGES</h2>
+        Timelapse
+        <code>ffmpeg -start_number 6980 -i IMG_%04d.jpg -c:v libx264 -pix_fmt yuv420p -s 1920x1080 timelapse.mp4</code>
+        <code>ffmpeg -r 10 -start_number 6980 -i IMG_%04d.jpg -c:v libx264 -pix_fmt yuv420p -s 1920x1080 timelapse.mp4</code>
+        Output one image every minute, named img001.jpg, img002.jpg, img003.jpg, etc. The %03d dictates that the ordinal number of each output image will be formatted using 3 digits.
+        <code>ffmpeg -i myvideo.avi -vf fps=1/60 img%03d.jpg</code>
+        <h2>DEVICES</h2>
+        <code>ffmpeg -list_devices true -f dshow -i dummy</code>
+        <h2>REVERSE</h2>
+        <code>ffmpeg -i inputfile.mp4 -vf reverse reversed.mp4</code>
+        <h2>CONCAT</h2>
+        Create a file mylist.txt
+        <code># this is a comment<br />
+            file '/path/to/file1.mp4'<br />
+            file '/path/to/file2.mp4'<br />
+            file '/path/to/file3.mp4'</code>
+
+            <code>ffmpeg -f concat -i mylist.txt -c copy output.mp4</code>
+            <code>ffmpeg -f concat -i mylist.txt -pix_fmt yuv420p output.mp4</code>
+
+            <a href="https://trac.ffmpeg.org/wiki/Concatenate">https://trac.ffmpeg.org/wiki/Concatenate</a>
+
+            <code>ffmpeg -isync -i "concat:01.ts|02.ts" -f matroska -c copy output.mp4</code>
+
+            <h2>CROP</h2>
+            out_w is the width of the output rectangle<br />
+            out_h is the height of the output rectangle<br />
+            x and y specify the top left corner of the output rectangle<br />
+            <code>ffmpeg -i "input.mp4" -aspect 16:9 -s 720x576 -vcodec libx264 -vb 2200k -filter:v "crop=640:480:42:42" -acodec copy output.mp4</code>
+
+            <h2>ROTATE</h2>
+
+            <code>ffmpeg -i input.mp4 -c copy -metadata:s:v:0 rotate=0 output.mp4</code>
+
+            <code>ffmpeg -i in.mov -vf "transpose=1" out.mov</code>
+            For the transpose parameter you can pass:
+
+            <code>
+                0 = 90CounterCLockwise and Vertical Flip (default)<br />
+                1 = 90Clockwise<br />
+                2 = 90CounterClockwise<br />
+                3 = 90Clockwise and Vertical Flip
+            </code>
+            for 180 degrees
+            <code>-vf "transpose=2,transpose=2"</code>
+
+
+        </td>
+        <td>
+            <h2>iPhone, iPod, iPad</h2>
+
+            <code>ffmpeg -i "input.avi" -metadata title="" -b:v 150k -b:a 96k -vcodec libx264 "output.mp4"</code>
+
+            <h2>SOUND FROM VIDEO</h2>
+
+            <code>ffmpeg -i input.mp4 -vn -ar 44100 -ac 2 -ab 192k -f mp3 sound.mp3</code>
+
+            <h2>JOIN SOUND AND VIDEO</h2>
+
+            <code>ffmpeg -i "sound.mp3" -i "video.mp4" -map 0:0 -map 1:0 -acodec copy -vcodec copy -shortest output.mp4</code>
+
+            <h2>WITHOUT SOUND</h2>
+
+            <code>ffmpeg -i "input.mp4" -vcodec libx264 -an -s output-without-sound.mp4</code>
+
+            <h2>SPEED</h2>
+
+            <code>ffmpeg -i "input.mp4" -filter:v "setpts=0.5*PTS" -c:v libx264 -b:v 2496k -minrate 2496k -maxrate 2496k -bufsize 1835k -an "output.mp4"</code>
+
+            <h2>SKIP SECONDS AND TIME</h2>
+
+            <code>ffmpeg -i "input.mp4" -ss 10 -t 5 -vcodec copy output.mp4</code>
+
+            <h2>CURVES</h2>
+            <code>ffmpeg -i input.mp4 -vf curves=psfile=/path/to/ps_curves_file.acv -c:a copy output.mp4</code>
+        </td>
+        <td>
+
+
+            <h2>YOUTUBE-DL</h2>
+
+            <code>youtube-dl -o video.mp4 --list-formats "https://www.youtube.com/watch?v=53eenuQie1k"</code>
+            <code>youtube-dl -o video18.mp4 -f 18 "https://www.youtube.com/watch?v=53eenuQie1k"</code>
+
+            <h2>BAT FILES</h2>
+
+            <code>for %%A IN (*.avi) DO ffmpeg -r 25 -i "%%A" -vcodec copy "newfolder/%%A"</code>
+
+            <code>for %%A IN (*.avi) DO ffmpeg -i "%%A" -qscale 0 "newfolder/%%A.avi</code>
+
+            <code>for %%A IN (*.avi) DO ffmpeg -i "%%A" -vcodec copy -b:a 192k "newfolder/%%A.avi"</code>
+
+            <code>for %%A IN (*.avi) DO ffmpeg -i "%%A" -vb 5000k "newfolder/%%A.avi"</code>
+
+            <code>for %%A IN (*.flv) DO ffmpeg -i "%%A" -f mpegts -c copy -bsf:v h264_mp4toannexb "newfolder/%%A.mpeg.ts"</code>
+
+            <code>for %%A IN (*.m4r) DO ffmpeg -i "%%A" -q:a 2 "newfolder/%%A.mp3"</code>
+            <code>for %f in (*.wav) do ffmpeg -i "%f" -b:a 192k "%f.mp3</code>
+
+            <code>for %%A IN (*.mov) DO ffmpeg -i "%%A" -c:v libx264 -b:v 2496k -minrate 2496k -maxrate 2496k -bufsize 1835k -ar 44100 -ac 2 -ab 192k "newfolder/%%A"</code>
+
+            <code>for %%A IN (*.avi) DO ffmpeg -i "%%A" -vcodec libx264 -s 640x480 -an "%%A"</code>
+            <h2>mp3.sh</h2>
+            <code>
+                "c:/ffmpeg/bin/ffmpeg.exe" -i "Track 01.wav" -ab 192k -f mp3 "Track 01.mp3"<br />
+                "c:/ffmpeg/bin/ffmpeg.exe" -i "Track 02.wav" -ab 192k -f mp3 "Track 02.mp3"
+            </code>
+            <code>
+                ./mp3.sh
+            </code>
+            <h2>video.sh</h2>
+            <code>
+                for i in *.wmv;<br />
+                  do name=`echo $i`;<br />
+                  echo $name;<br />
+                  "c:/Users/user/Dropbox/apps/ffmpeg/bin/ffmpeg.exe" -i "$i" "${name}.mp4";<br />
+                done
+            </code>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

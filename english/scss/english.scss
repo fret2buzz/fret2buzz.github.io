@@ -1,0 +1,143 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+$space: 20px;
+
+body {
+    background: #ccc;
+    font-family: 'Verdana', 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    max-height: 99999px;
+
+    a {
+        color: #000;
+    }
+
+    a:hover,
+    a:focus {
+        color: #da1f27;
+    }
+}
+
+.container {
+    min-width: 320px;
+    width: 86%;
+    max-width: 1000px;
+    margin: $space auto;
+}
+
+.data {
+    width: 100%;
+
+    th,
+    .data-label {
+        font-weight: 700;
+        padding: 10px;
+    }
+
+    th {
+        display: none;
+    }
+    th strong {
+        display: block;
+        background: #000;
+        color: #fff;
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    th img {
+        width: 258px;
+        display: block;
+        margin: 0 auto 5px;
+    }
+
+    tr,
+    td {
+        display: block;
+    }
+
+    th,
+    td {
+        vertical-align: top;
+    }
+
+    .data-cell {
+        cursor: pointer;
+    }
+
+    .data-cell,
+    .data-cell-alt {
+        background: #fff;
+        border: 1px solid #333;
+
+        &:nth-child(odd) {
+            background: #eee;
+        }
+    }
+
+    strong {
+        font-weight: 700;
+    }
+
+    .translation {
+        display: none;
+        padding: 10px;
+
+    }
+
+    %block {
+        display: block;
+        padding: 10px;
+    }
+
+    .english {
+        @extend %block;
+    }
+
+    .pattern {
+        @extend %block;
+    }
+
+    .data-cell.show {
+        background: #ccffde;
+
+        .english {
+            background: #ffc;
+        }
+
+        .translation {
+            display: block;
+        }
+    }
+
+
+
+    @media (min-width: 768px) {
+        tr {
+            display: table-row;
+        }
+
+        td {
+            display: table-cell;
+        }
+
+        th,
+        .data-label {
+            display: table-cell;
+        }
+    }
+}
+
+.button {
+    position: fixed;
+    cursor: pointer;
+    right: $space;
+    top: $space;
+    font-family: 'Verdana', 'Arial', sans-serif;
+    font-size: 20px;
+}
