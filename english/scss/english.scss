@@ -141,3 +141,24 @@ body {
     font-family: 'Verdana', 'Arial', sans-serif;
     font-size: 20px;
 }
+
+.text {
+    padding: 0 0 20px;
+
+    h2,
+    p {
+        margin: 0 auto;
+        max-width: 700px;
+    }
+
+    h2 {
+        font-size: 16px;
+        font-weight: 700;
+
+    }
+
+    p {
+        padding: 10px 10px 20px;
+        background: #fefefe;
+    }
+}
